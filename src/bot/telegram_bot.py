@@ -11,7 +11,8 @@ async def forwarding_warning_message(message: str):
 
     if not telegram_token or not telegram_chat_id:
         print("No telegram token or chat id found")
-        return
+        raise Exception("No telegram token or chat id found")
+
     try:
         bot = Bot(token=telegram_token)
         await bot.send_message(chat_id=telegram_chat_id, text=message)

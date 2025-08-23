@@ -3,6 +3,7 @@ from src.main import app
 
 client = TestClient(app)
 
+
 def test_warning():
     response = client.post(
         "/notifications",
