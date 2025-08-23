@@ -1,15 +1,9 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+
+from src.schema.notification_schema import DefaultNotification
+from src.storage.notifications_in_memory import saved_notifications
 
 app = FastAPI()
-
-
-saved_notifications = []
-
-class DefaultNotification(BaseModel):
-    Type: str
-    Name: str
-    Description: str
 
 
 @app.post("/notifications")
