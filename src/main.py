@@ -7,7 +7,7 @@ app = FastAPI()
 
 
 @app.post("/notifications")
-def read_root(notification: DefaultNotification):
+def receive_notifications(notification: DefaultNotification):
 
     saved_notifications.append(notification)
 
@@ -15,4 +15,4 @@ def read_root(notification: DefaultNotification):
         print("Warning received")
         return {"message": "Warning received"}
     print("message received")
-    return {"message": "message received"}
+    return {"message": "Notification received"}
