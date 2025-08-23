@@ -1,17 +1,17 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
 import os
 
 from src.schema.notification_schema import DefaultNotification
 from src.storage.notifications_in_memory import saved_notifications
 from src.bot.telegram_bot import forwarding_warning_message
 
-import asyncio
 
 app = FastAPI()
 
 
 @app.post("/notifications")
-def receive_notifications(notification: DefaultNotification):
+async def receive_notifications(notification: DefaultNotification):
     """
     notifications getting stored in saved_notifications
     notifications of "Type": "Warning" are forwarded to telegram bot"
@@ -20,14 +20,24 @@ def receive_notifications(notification: DefaultNotification):
     saved_notifications.append(notification)
 
     if notification.Type == "Warning":
-        print("Warning received")
-        asyncio.run(forwarding_warning_message(str(notification)))
-        return {"message": "Warning received"}
+        chat_message = f"Warning: {notification.Name}\n\n{notification.Description}"
+
+        try:
+            await forwarding_warning_message(chat_message)
+            print("Warning received and forwarded to telegram")
+            return {"message": "Warning received and forwarded to telegram"}
+        except Exception as e:
+            print(f"Error forwarding warning to telegram: {e}")
+            return JSONResponse(
+                status_code=202,
+                content={"message": "Warning received, forward to Telegram failed"},
+            )
+
     print("message received")
     return {"message": "Notification received"}
 
 @app.post("/entries")
-def list_notifications(pw: str):
+async def list_notifications(pw: str):
     """
     list saved notifications if password is correct
     """
@@ -35,10 +45,10 @@ def list_notifications(pw: str):
     password = os.getenv("NOTIFICATIONS_PW")
     if not password:
         print("Password not set")
-        return {"message": "Password not set"}
+        return HTTPException(status_code=500, detail="Server Error: Password not set")
     if pw != password:
         print("Password not correct")
-        return {"message": "Invalid password"}
+        return HTTPException(status_code=401, detail="Unauthorized")
 
     print("Password valid, listing notifications")
     return saved_notifications

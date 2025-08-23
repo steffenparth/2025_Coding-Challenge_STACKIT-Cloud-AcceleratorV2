@@ -9,3 +9,7 @@ https://fastapi.tiangolo.com/reference/testclient/?h=testc
 https://core.telegram.org/bots/tutorial#obtain-your-bot-token
 
 https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-the-API
+
+https://fastapi.tiangolo.com/reference/exceptions/
+
+https://fastapi.tiangolo.com/advanced/additional-status-codes/
