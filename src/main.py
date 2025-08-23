@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 import os
 
@@ -45,10 +45,16 @@ async def list_notifications(pw: str):
     password = os.getenv("NOTIFICATIONS_PW")
     if not password:
         print("Password not set")
-        return HTTPException(status_code=500, detail="Server Error: Password not set")
+        return JSONResponse(
+            status_code=500,
+            content={"message": "Server Error: Password not set"},
+        )
+
     if pw != password:
         print("Password not correct")
-        return HTTPException(status_code=401, detail="Unauthorized")
-
+        return JSONResponse(
+            status_code=401,
+            content={"message": "Unauthorized"},
+        )
     print("Password valid, listing notifications")
     return saved_notifications
