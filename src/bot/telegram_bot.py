@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 import os
 
 async def forwarding_warning_message(message: str):
+    """
+    if telegram credentials are set, a message is forwarded to telegram bot
+    """
 
     telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
     telegram_chat_id = os.getenv("TELEGRAM_CHAT_ID")

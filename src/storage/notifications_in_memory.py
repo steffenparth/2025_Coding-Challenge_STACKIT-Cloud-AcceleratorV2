@@ -1,3 +1,3 @@
+from typing import List
 
-
-saved_notifications = []
+saved_notifications: List = []
