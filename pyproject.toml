@@ -1,7 +1,7 @@
 [project]
 name = "2025-coding-challenge-stackit-cloud-accelerator"
 version = "0.1.0"
-description = "Add your description here"
+description = "A FastAPI-based notification system that saves notifications in memory and forwards warning notifications to a Telegram messenger."
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.116.1",

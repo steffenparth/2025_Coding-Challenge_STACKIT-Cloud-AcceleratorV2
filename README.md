@@ -79,7 +79,7 @@ uv run pytest
 or
 
 ```bash
-uv run pytest tests/api_test.py -v
+uv run pytest src/tests/api_test.py -v
 ```
 
 # Example (with curl)

@@ -14,7 +14,7 @@ def test_warning():
     )
 
     assert response.status_code == 200
-    assert response.json() == {"message": "Warning received"}
+    assert response.json() == {"message": "Warning received and forwarded to telegram"}
 
 
 def test_notifications():
@@ -82,4 +82,4 @@ def test_order():
     )
 
     assert response.status_code == 200
-    assert response.json() == {"message": "Warning received"}
+    assert response.json() == {"message": "Warning received and forwarded to telegram"}
