@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import os
 
 from src.schema.notification_schema import DefaultNotification
 from src.storage.notifications_in_memory import saved_notifications
@@ -24,3 +25,20 @@ def receive_notifications(notification: DefaultNotification):
         return {"message": "Warning received"}
     print("message received")
     return {"message": "Notification received"}
+
+@app.post("/entries")
+def list_notifications(pw: str):
+    """
+    list saved notifications if password is correct
+    """
+
+    password = os.getenv("NOTIFICATIONS_PW")
+    if not password:
+        print("Password not set")
+        return {"message": "Password not set"}
+    if pw != password:
+        print("Password not correct")
+        return {"message": "Invalid password"}
+
+    print("Password valid, listing notifications")
+    return saved_notifications

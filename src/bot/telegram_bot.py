@@ -1,5 +1,4 @@
 from telegram import Bot
-from dotenv import load_dotenv
 import os
 
 async def forwarding_warning_message(message: str):
