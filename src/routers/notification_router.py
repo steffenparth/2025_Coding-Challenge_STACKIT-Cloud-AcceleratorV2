@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 
 from ..schema.notification_schema import DefaultNotification
 from ..storage.notifications_in_memory import saved_notifications
@@ -51,3 +51,17 @@ async def list_notifications(pw: str):
 
     print("Password valid, listing notifications")
     return saved_notifications
+
+@router.get("/")
+async def redirect_to_docs():
+    """
+    redirect to docs
+    """
+    return RedirectResponse(url="/docs", status_code=301)
+
+@router.get("/{path:path}")
+async def page_not_found():
+    """
+    Default error response for all other requests
+    """
+    raise HTTPException(status_code=404, detail="Page not found")
