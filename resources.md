@@ -13,3 +13,9 @@ https://github.com/python-telegram-bot/python-telegram-bot/wiki/Introduction-to-
 https://fastapi.tiangolo.com/reference/exceptions/
 
 https://fastapi.tiangolo.com/advanced/additional-status-codes/
+
+# Pydantic
+
+https://docs.pydantic.dev/latest/concepts/fields/
+
+https://docs.pydantic.dev/latest/concepts/pydantic_settings/#dotenv-env-support

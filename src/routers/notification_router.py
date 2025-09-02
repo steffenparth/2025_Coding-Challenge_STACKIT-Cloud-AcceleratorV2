@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 
 from ..schema.notification_schema import DefaultNotification
@@ -45,18 +45,9 @@ async def list_notifications(pw: str):
     list saved notifications if password is correct
     """
 
-    if not credentials.NOTIFICATIONS_PW:
-        print("Password not set")
-        return JSONResponse(
-            status_code=500,
-            content={"message": "Server Error: Password not set"},
-        )
-
     if pw != credentials.NOTIFICATIONS_PW:
         print("Password not correct")
-        return JSONResponse(
-            status_code=401,
-            content={"message": "Unauthorized"},
-        )
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
     print("Password valid, listing notifications")
     return saved_notifications
