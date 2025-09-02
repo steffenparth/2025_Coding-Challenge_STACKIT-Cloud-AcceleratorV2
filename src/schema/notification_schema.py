@@ -9,26 +9,14 @@ class DefaultNotificationTypes(str, Enum):
 
 class DefaultNotification(BaseModel):
     """
-    Represents a default notification with a specified type, name, and description.
+    Type, Name and Description must be specified,
+    additional values are ignored
 
-    This class is a model for default notifications, used to structure and validate
-    the attributes of a notification. It ensures that the `Name` and `Description`
-    attributes meet specified criteria regarding length.
-
-    Attributes:
-    Type:
-        The type of the notification, represented by DefaultNotificationTypes.
-    Name:
-        The name of the notification with a minimum length of 1 and a maximum of 100.
-    Description:
-        A description of the notification with a minimum length of 1 and a maximum of 500.
+    - **Type (required)**: Notification type (must be one of: `"Info"`, `"Warning"`, `"Error"`)
+    - **Name (required)**: Short title of the notification (1–100 characters)
+    - **Description (required)**: Detailed description of the notification (1–500 characters)
     """
 
     Type: DefaultNotificationTypes
     Name: str = Field(..., min_length=1, max_length=100)
     Description: str = Field(..., min_length=1, max_length=500)
-
-    # """
-    # Type, Name and Description must be specified,
-    # additional values are ignored
-    # """
