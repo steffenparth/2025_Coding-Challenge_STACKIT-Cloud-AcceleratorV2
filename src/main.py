@@ -13,8 +13,13 @@ app = FastAPI()
 @app.post("/notifications")
 async def receive_notifications(notification: DefaultNotification):
     """
-    notifications getting stored in saved_notifications
+    notifications getting stored -
     notifications of "Type": "Warning" are forwarded to telegram bot"
+
+    - **Type (required)**: Notification type (must be one of: `"Info"`, `"Warning"`, `"Error"`)
+    - **Name (required)**: Short title of the notification (1–100 characters)
+    - **Description (required)**: Detailed description of the notification (1–500 characters)
+    - **Additional parameters**: Additional parameters can be added to the notification, but are ignored.
     """
 
     saved_notifications.append(notification)
