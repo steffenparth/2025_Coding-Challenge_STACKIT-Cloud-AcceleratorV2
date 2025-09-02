@@ -15,7 +15,7 @@ def test_warning():
     )
 
     assert response.status_code == 200
-    assert response.json() == {"message": "Warning received and forwarded to telegram"}
+    assert response.json() == {"message": "Warning received, saved and forwarded to telegram"}
 
 
 def test_notifications():
@@ -29,7 +29,7 @@ def test_notifications():
     )
 
     assert response.status_code == 200
-    assert response.json() == {"message": "Notification received"}
+    assert response.json() == {"message": "Notification received and saved"}
 
 
 def test_warning_lowercase():
@@ -42,15 +42,14 @@ def test_warning_lowercase():
         },
     )
 
-    assert response.status_code == 200
-    assert response.json() == {"message": "Notification received"}
+    assert response.status_code == 422
 
 
 def test_more_params():
     response = client.post(
         "/notifications",
         json={
-            "Type": "warning",
+            "Type": "Info",
             "Name": "Backup Failure",
             "Description": "The backup failed due to a database problem.",
             "Timestamp": "2023-01-01",
@@ -58,7 +57,7 @@ def test_more_params():
     )
 
     assert response.status_code == 200
-    assert response.json() == {"message": "Notification received"}
+    assert response.json() == {"message": "Notification received and saved"}
 
 def test_missing_type():
     response = client.post(
@@ -83,4 +82,4 @@ def test_order():
     )
 
     assert response.status_code == 200
-    assert response.json() == {"message": "Warning received and forwarded to telegram"}
+    assert response.json() == {"message": "Warning received, saved and forwarded to telegram"}
