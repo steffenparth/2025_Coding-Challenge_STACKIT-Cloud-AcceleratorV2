@@ -46,12 +46,12 @@ uv sync
 #### <your_notification_password>
 Choose a password of your choice
 
-4. Export the credentials as environment variables:
+4.  create a .env file in the root directory of the project and add the following lines:
 
 ```bash
-export TELEGRAM_BOT_TOKEN=<your_bot_token>
-export TELEGRAM_CHAT_ID=<your_chat_id>
-export NOTIFICATIONS_PW=<your_notification_password>
+TELEGRAM_BOT_TOKEN=<your_bot_token>
+TELEGRAM_CHAT_ID=<your_chat_id>
+NOTIFICATIONS_PW=<your_notification_password>
 ```
 
 # Running the Application

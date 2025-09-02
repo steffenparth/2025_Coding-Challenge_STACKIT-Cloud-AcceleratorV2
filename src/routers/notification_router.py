@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
-import os
 
 from ..schema.notification_schema import DefaultNotification
 from ..storage.notifications_in_memory import saved_notifications
 from ..bot.telegram_bot import forwarding_warning_message
+from ..dependencies import credentials
 
 router = APIRouter()
 
@@ -45,15 +45,14 @@ async def list_notifications(pw: str):
     list saved notifications if password is correct
     """
 
-    password = os.getenv("NOTIFICATIONS_PW")
-    if not password:
+    if not credentials.NOTIFICATIONS_PW:
         print("Password not set")
         return JSONResponse(
             status_code=500,
             content={"message": "Server Error: Password not set"},
         )
 
-    if pw != password:
+    if pw != credentials.NOTIFICATIONS_PW:
         print("Password not correct")
         return JSONResponse(
             status_code=401,
