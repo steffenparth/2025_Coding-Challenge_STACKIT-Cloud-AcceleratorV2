@@ -52,12 +52,6 @@ async def list_notifications(pw: str):
     print("Password valid, listing notifications")
     return saved_notifications
 
-@router.get("/")
-async def redirect_to_docs():
-    """
-    redirect to docs
-    """
-    return RedirectResponse(url="/docs", status_code=301)
 
 @router.get("/{path:path}")
 async def page_not_found():
